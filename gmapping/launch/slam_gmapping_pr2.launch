@@ -1,7 +1,17 @@
 <launch>
     <param name="use_sim_time" value="true"/>
+
+    <!--<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter" output="screen">
+      <rosparam command="load" file="$(find gmapping)/config/scan_data_filter.yaml" />
+    </node>-->
+
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-      <remap from="scan" to="base_scan"/>
+      <remap from="scan" to="laser_scan"/>
+      <!--<remap from="scan" to="scan_filtered"/>-->
+      <param name="odom_frame"     type="string" value="camera_odom_frame"/>
+      <param name="base_frame"     type="string" value="camera_pose_frame"/>
+      <param name="map_frame"     type="string" value="map"/>
+
       <param name="map_update_interval" value="5.0"/>
       <param name="maxUrange" value="16.0"/>
       <param name="sigma" value="0.05"/>
